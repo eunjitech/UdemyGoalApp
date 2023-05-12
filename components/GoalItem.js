@@ -8,12 +8,17 @@ import {
   TextInput,
   ScrollView,
   FlatList,
+  Pressable,
 } from "react-native";
 function GoalItem(props) {
+  const { onDeleteItem } = props;
+
   return (
-    <View style={styles.goalTextContainer}>
-      <Text style={styles.goalText}>∙ {props.text}</Text>
-    </View>
+    <Pressable onPress={() => onDeleteItem(props.id)}>
+      <View style={styles.goalTextContainer}>
+        <Text style={styles.goalText}>∙ {props.text}</Text>
+      </View>
+    </Pressable>
   );
 }
 
