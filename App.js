@@ -14,12 +14,21 @@ import GoalInput from "./components/GoalInput";
 
 export default function App() {
   const [courseGoals, setCourseGoals] = useState([]);
+  const [modalIsVisible, setModalIsVisible] = useState(false);
 
+  function startAddGoalHandler() {
+    setModalIsVisible(true);
+  }
+
+  function endAddGoalHandler() {
+    setModalIsVisible(false);
+  }
   function addGoalHandler(enteredGoalText) {
     setCourseGoals((currentCourseGoals) => [
       ...currentCourseGoals,
       { text: enteredGoalText, key: Math.random().toString() },
     ]);
+    endAddGoalHandler();
   }
 
   function deleteGoalHandler(id) {
@@ -30,9 +39,15 @@ export default function App() {
 
   return (
     <View style={styles.appContainer}>
-      <View style={styles.inputContainer}>
-        <GoalInput setCourseGoals={setCourseGoals} onAddGoal={addGoalHandler} />
-      </View>
+      <Button title="목표 추가" color="blue" onPress={startAddGoalHandler} />
+
+      <GoalInput
+        visible={modalIsVisible}
+        setCourseGoals={setCourseGoals}
+        onAddGoal={addGoalHandler}
+        onCancel={endAddGoalHandler}
+      />
+
       <View style={styles.goalsContainer}>
         <FlatList
           data={courseGoals}
@@ -57,15 +72,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   appContainer: { flex: 1, paddingTop: 50, paddingHorizontal: 16 },
-  inputContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 24,
-    borderBottomWidth: 1,
-    borderBottomColor: "#cccccc",
-  },
   goalsContainer: {
     flex: 5,
   },
