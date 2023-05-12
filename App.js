@@ -1,14 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TextInput,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { StyleSheet, Text, View, Button, FlatList } from "react-native";
 import GoalItem from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
 import theme from "./colors";
@@ -55,22 +47,35 @@ export default function App() {
         />
 
         <View style={styles.goalsContainer}>
-          <FlatList
-            data={courseGoals}
-            renderItem={(itemData) => {
-              return (
-                <GoalItem
-                  text={itemData.item.text}
-                  onDeleteItem={deleteGoalHandler}
-                  id={itemData.item.key}
-                />
-              );
-            }}
-            keyExtractor={(item, index) => {
-              return item.key;
-            }}
-            alwaysBounceVertical={false}
-          ></FlatList>
+          {(courseGoals.length > 0 && (
+            <FlatList
+              data={courseGoals}
+              renderItem={(itemData) => {
+                return (
+                  <GoalItem
+                    text={itemData.item.text}
+                    onDeleteItem={deleteGoalHandler}
+                    id={itemData.item.key}
+                  />
+                );
+              }}
+              keyExtractor={(item, index) => {
+                return item.key;
+              }}
+              alwaysBounceVertical={false}
+            ></FlatList>
+          )) || (
+            <Text
+              style={{
+                color: theme.lightColor,
+                alignSelf: "center",
+                paddingTop: 70,
+                fontSize: 15,
+              }}
+            >
+              목표가 없습니다.
+            </Text>
+          )}
         </View>
       </View>
     </>

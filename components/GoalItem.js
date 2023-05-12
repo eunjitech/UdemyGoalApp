@@ -1,15 +1,5 @@
-import { useState, useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  TextInput,
-  ScrollView,
-  FlatList,
-  Pressable,
-} from "react-native";
+import { StyleSheet, Text, View, Pressable } from "react-native";
+import { EvilIcons } from "@expo/vector-icons";
 import theme from "../colors";
 function GoalItem(props) {
   const { onDeleteItem } = props;
@@ -21,7 +11,10 @@ function GoalItem(props) {
         android_ripple={{ color: "#007874" }} //AOS 물결효과
         onPress={() => onDeleteItem(props.id)}
       >
-        <Text style={styles.goalText}>∙ {props.text}</Text>
+        <Text style={styles.goalText}>
+          <EvilIcons name="pencil" size={25} color={theme.lightColor} />
+          {props.text}
+        </Text>
       </Pressable>
     </View>
   );

@@ -1,13 +1,9 @@
-import { useState, useEffect } from "react";
-import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import {
   StyleSheet,
-  Text,
   View,
   Button,
   TextInput,
-  ScrollView,
-  FlatList,
   Modal,
   Image,
 } from "react-native";
@@ -15,7 +11,7 @@ import theme from "../colors";
 
 function GoalInput(props) {
   const [enteredGoalText, setEnteredGoalText] = useState("");
-  const { setCourseGoals, onAddGoal, visible, onCancel } = props;
+  const { onAddGoal, visible, onCancel } = props;
 
   function goalInputHandler(text) {
     setEnteredGoalText(text);
