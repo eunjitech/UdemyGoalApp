@@ -9,7 +9,9 @@ import {
   ScrollView,
   FlatList,
   Modal,
+  Image,
 } from "react-native";
+import theme from "../colors";
 
 function GoalInput(props) {
   const [enteredGoalText, setEnteredGoalText] = useState("");
@@ -27,18 +29,27 @@ function GoalInput(props) {
   return (
     <Modal visible={visible} animationType="slide">
       <View style={styles.inputContainer}>
+        <Image
+          style={styles.image}
+          source={require("../assets/images/goal.png")}
+        />
         <TextInput
           style={styles.textInput}
-          placeholder="목표 적어라"
+          placeholder="목표를 작성해봐요"
           onChangeText={goalInputHandler}
           value={enteredGoalText}
+          placeholderTextColor={theme.lightColor}
         />
         <View style={styles.buttonContainer}>
           <View style={styles.button}>
-            <Button title="추가" onPress={addGoalHandler} />
+            <Button
+              title="추가"
+              onPress={addGoalHandler}
+              color={theme.lightColor}
+            />
           </View>
           <View style={styles.button}>
-            <Button title="취소" onPress={onCancel} />
+            <Button title="취소" onPress={onCancel} color={theme.lightColor} />
           </View>
         </View>
       </View>
@@ -53,17 +64,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 24,
     padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: "#cccccc",
+    backgroundColor: theme.darkBg,
+    paddingBottom: 100,
+  },
+  image: {
+    width: 150,
+    height: 150,
+    margin: 30,
   },
   textInput: {
-    borderWidth: 1,
-    borderColor: "#cccccc",
+    borderWidth: 0.5,
+    borderColor: theme.lightColor,
+    borderRadius: 20,
     width: "100%",
     marginRight: 8,
-    padding: 8,
+    padding: 13,
+    color: theme.lightColor,
   },
   buttonContainer: {
     marginTop: 16,

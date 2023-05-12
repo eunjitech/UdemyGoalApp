@@ -10,6 +10,7 @@ import {
   FlatList,
   Pressable,
 } from "react-native";
+import theme from "../colors";
 function GoalItem(props) {
   const { onDeleteItem } = props;
 
@@ -30,12 +31,10 @@ export default GoalItem;
 
 const styles = StyleSheet.create({
   goalTextContainer: {
-    borderWidth: 1,
-    borderRadius: 15,
-    borderColor: "#039590",
     marginBottom: 10,
-    backgroundColor: "#039590",
+    borderBottomWidth: 0.5,
+    borderBottomColor: "#cccccc",
   },
-  goalText: { color: "#ffffff", padding: 10 },
+  goalText: { color: theme.lightColor, padding: 10 },
   pressedItem: { opacity: 0.3 },
 });

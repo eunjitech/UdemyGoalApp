@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import GoalItem from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
+import theme from "./colors";
 
 export default function App() {
   const [courseGoals, setCourseGoals] = useState([]);
@@ -38,41 +39,53 @@ export default function App() {
   }
 
   return (
-    <View style={styles.appContainer}>
-      <Button title="목표 추가" color="blue" onPress={startAddGoalHandler} />
+    <>
+      <StatusBar style="light" />
+      <View style={styles.appContainer}>
+        <Button
+          title="목표 추가하기"
+          color={theme.lightColor}
+          onPress={startAddGoalHandler}
+        />
+        <GoalInput
+          visible={modalIsVisible}
+          setCourseGoals={setCourseGoals}
+          onAddGoal={addGoalHandler}
+          onCancel={endAddGoalHandler}
+        />
 
-      <GoalInput
-        visible={modalIsVisible}
-        setCourseGoals={setCourseGoals}
-        onAddGoal={addGoalHandler}
-        onCancel={endAddGoalHandler}
-      />
-
-      <View style={styles.goalsContainer}>
-        <FlatList
-          data={courseGoals}
-          renderItem={(itemData) => {
-            return (
-              <GoalItem
-                text={itemData.item.text}
-                onDeleteItem={deleteGoalHandler}
-                id={itemData.item.key}
-              />
-            );
-          }}
-          keyExtractor={(item, index) => {
-            return item.key;
-          }}
-          alwaysBounceVertical={false}
-        ></FlatList>
+        <View style={styles.goalsContainer}>
+          <FlatList
+            data={courseGoals}
+            renderItem={(itemData) => {
+              return (
+                <GoalItem
+                  text={itemData.item.text}
+                  onDeleteItem={deleteGoalHandler}
+                  id={itemData.item.key}
+                />
+              );
+            }}
+            keyExtractor={(item, index) => {
+              return item.key;
+            }}
+            alwaysBounceVertical={false}
+          ></FlatList>
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  appContainer: { flex: 1, paddingTop: 50, paddingHorizontal: 16 },
+  appContainer: {
+    flex: 1,
+    paddingTop: 50,
+    paddingHorizontal: 16,
+    backgroundColor: theme.bg,
+  },
   goalsContainer: {
     flex: 5,
+    marginTop: 30,
   },
 });
