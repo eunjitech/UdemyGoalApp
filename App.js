@@ -1,15 +1,48 @@
+import { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TextInput,
+  ScrollView,
+} from "react-native";
 
 export default function App() {
+  const [enteredGoalText, setEnteredGoalText] = useState("");
+  const [courseGoals, setCourseGoals] = useState([]);
+
+  function goalInputHandler(text) {
+    setEnteredGoalText(text);
+  }
+  function addGoalHandler() {
+    console.log(enteredGoalText);
+    setCourseGoals((currentCourseGoals) => [
+      ...currentCourseGoals,
+      enteredGoalText,
+    ]);
+  }
   return (
     <View style={styles.appContainer}>
       <View style={styles.inputContainer}>
-        <TextInput style={styles.textInput} placeholder="목표 적어라" />
-        <Button title="추가" />
+        <TextInput
+          style={styles.textInput}
+          placeholder="목표 적어라"
+          onChangeText={goalInputHandler}
+        />
+        <Button title="추가" onPress={addGoalHandler} />
       </View>
       <View style={styles.goalsContainer}>
-        <Text>List of goals..</Text>
+        <ScrollView>
+          {courseGoals.map((goal, key) => (
+            <View style={styles.goalTextContainer}>
+              <Text style={styles.goalText} key={`${goal}_${key}`}>
+                ∙ {goal}
+              </Text>
+            </View>
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
@@ -36,4 +69,13 @@ const styles = StyleSheet.create({
   goalsContainer: {
     flex: 5,
   },
+  goalTextContainer: {
+    padding: 10,
+    borderWidth: 1,
+    borderRadius: 15,
+    borderColor: "#039590",
+    marginBottom: 13,
+    backgroundColor: "#039590",
+  },
+  goalText: { color: "#ffffff" },
 });
